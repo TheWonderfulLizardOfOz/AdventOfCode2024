@@ -14,11 +14,11 @@ for line in lines:
 list1 = sorted(list1)
 list2 = sorted(list2)
 
+
 def day1p1():
     tot = 0
     for n1, n2 in zip(list1, list2):
         tot += abs(n1 - n2)
-
     return tot
 
 
@@ -29,4 +29,5 @@ def day1p2():
     return tot
 
 
+print(day1p1())
 print(day1p2())
