@@ -1,7 +1,7 @@
 import re
 import math
 
-lines = open("input.txt", "r", encoding="utf-8").read().splitlines()
+(rules, unparsedUpdates) = (section.splitlines() for section in open("input.txt", "r", encoding="utf-8").read().split("\n\n"))
 
 # e.g. {1: 2} 1 must come before 2
 predecessors = {}
@@ -12,9 +12,9 @@ updates = []
 def parseLines():
     global updates
     # set predecessors
-    [predecessors.setdefault(int(rule[0]), set()).add(int(rule[1])) for rule in [line.split("|") for line in lines] if len(rule) > 1]
+    [predecessors.setdefault(int(rule[0]), set()).add(int(rule[1])) for rule in [line.split("|") for line in rules]]
     # set updates
-    updates = [[int(x) for x in line.split(",")] for line in lines if len(line.split(",")) > 1]
+    updates = [[int(x) for x in update.split(",")] for update in unparsedUpdates]
 
 
 def checkValidUpdate(update):
