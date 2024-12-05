@@ -5,28 +5,16 @@ lines = open("input.txt", "r", encoding="utf-8").read().splitlines()
 
 # e.g. {1: 2} 1 must come before 2
 predecessors = {}
-updates = []
 incorrectlyOrdered = []
+updates = []
 
 
-def setRules():
-    for line in lines:
-        if line == "":
-            break
-        rule = [int(x) for x in line.split("|")]
-        if rule[0] not in predecessors:
-            predecessors[rule[0]] = {rule[1]}
-        else:
-            predecessors[rule[0]].add(rule[1])
-
-
-def setUpdates():
-    atUpdates = False
-    for line in lines:
-        if line == "":
-            atUpdates = True
-        elif atUpdates:
-            updates.append([int(x) for x in line.split(",")])
+def parseLines():
+    global updates
+    # set predecessors
+    [predecessors.setdefault(int(rule[0]), set()).add(int(rule[1])) for rule in [line.split("|") for line in lines] if len(rule) > 1]
+    # set updates
+    updates = [[int(x) for x in line.split(",")] for line in lines if len(line.split(",")) > 1]
 
 
 def checkValidUpdate(update):
@@ -34,9 +22,8 @@ def checkValidUpdate(update):
 
     for page in update:
         visitedPages.add(page)
-        for pred in predecessors.get(page, []):
-            if pred in visitedPages:
-                return False
+        if len(visitedPages.intersection(predecessors.get(page, set()))) != 0:
+            return False
     return True
 
 
@@ -56,8 +43,6 @@ def sortUpdate(update):
 
 
 def day5p1():
-    setRules()
-    setUpdates()
     total = 0
 
     for update in updates:
@@ -76,5 +61,6 @@ def day5p2():
     return total
 
 
+parseLines()
 print(day5p1())
 print(day5p2())
