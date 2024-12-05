@@ -29,16 +29,20 @@ def checkValidUpdate(update):
 
 def sortUpdate(update):
     sortedUpdate = []
+
     for page in update:
         inserted = False
+
         if page in predecessors:
             for i in range(len(sortedUpdate)):
                 if sortedUpdate[i] in predecessors[page]:
                     sortedUpdate = sortedUpdate[0:i] + [page] + sortedUpdate[i::]
                     inserted = True
                     break
+
         if not inserted:
             sortedUpdate.append(page)
+
     return sortedUpdate
 
 
@@ -55,6 +59,7 @@ def day5p1():
 
 def day5p2():
     total = 0
+
     for update in incorrectlyOrdered:
         sortedUpdate = sortUpdate(update)
         total += sortedUpdate[len(sortedUpdate) // 2]
