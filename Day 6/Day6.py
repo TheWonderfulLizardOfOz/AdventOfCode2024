@@ -55,8 +55,7 @@ def day6p1():
     directionIndex = 0
     visited.add(guardLocation)
 
-    while (guardLocation, directionIndex) not in turns and 0 < guardLocation[0] < len(lines[0]) - 1 and 0 < guardLocation[1] < len(lines) - 1:
-        turns.add((guardLocation, directionIndex))
+    while 0 < guardLocation[0] < len(lines[0]) - 1 and 0 < guardLocation[1] < len(lines) - 1:
         guardLocation, directionIndex = traverse(guardLocation, directionIndex)
 
     return len(visited)
