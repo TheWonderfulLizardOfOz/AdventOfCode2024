@@ -3,7 +3,7 @@ import math
 from functools import cache
 
 
-lines = [list(line) for line in open("input.txt", "r", encoding="utf-8").read().splitlines()]
+lines = [list(line) for line in open("message.txt", "r", encoding="utf-8").read().splitlines()]
 # dirs [up, right, down, left]
 directions = [(0, -1), (1, 0), (0, 1), (-1, 0)]
 guardStart = (0, 0)
@@ -31,7 +31,6 @@ def traverse(location, directionIndex):
 
 
 def checkLoop(col, row):
-    set.clear(visited)
     set.clear(turns)
     lines[row][col] = '#'
     guardLocation = guardStart
